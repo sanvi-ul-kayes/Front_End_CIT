@@ -10,19 +10,30 @@ const SignUp = () => {
   let [nameErr, setNameErr] = useState("");
   let [emailErr, setEmailErr] = useState("");
   let [PasswordErr, setPasswordErr] = useState("");
-  let [signup, setSignUp] = useState("");
+  let [showIcon, setShowIcon] = useState(true);
 
   let handleEmail = (e) => {
-    console.log(e.target.value);
+    setEmail(e.target.value);
+    setEmailErr("");
   };
   let handleName = (e) => {
-    console.log(e.target.value);
+    setName(e.target.value);
+    setNameErr("");
   };
   let handlePassword = (e) => {
-    console.log(e.target.value);
+    setPassword(e.target.value);
+    setPasswordErr("");
   };
-  let handleSignUp = () => {
-    console.log("first");
+  let handleSignUpbtn = () => {
+    if (!name) {
+      setNameErr("name is required");
+    }
+    if (!email) {
+      setEmailErr("email is required");
+    }
+    if (!Password) {
+      setPasswordErr("password is required");
+    }
   };
 
   return (
@@ -43,10 +54,12 @@ const SignUp = () => {
 
               <input
                 onChange={handleEmail}
-                className="w-[368px] h-[104px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
+                className="w-[368px] h-[81px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
                 type="text"
                 placeholder="Enter your Email"
+                value={email}
               />
+              {emailErr && <p className="text-red-300">{emailErr} </p>}
             </div>
             <div className=" mt-[61px] relative">
               <label className="text-[13px] font-semibold leading-[7.5px] text-[#A0A0A0] absolute  top-[-15px] left-[46px] p-3 bg-white   ">
@@ -55,10 +68,12 @@ const SignUp = () => {
 
               <input
                 onChange={handleName}
-                className="w-[368px] h-[104px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
+                className="w-[368px] h-[81px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
                 type="text"
                 placeholder="Enter your Name"
+                value={name}
               />
+              {nameErr && <p className="text-red-300">{nameErr} </p>}
             </div>
             <div className=" mt-[61px] relative">
               <label className="text-[13px] font-semibold leading-[7.5px] text-[#A0A0A0] absolute  top-[-15px] left-[46px] p-3 bg-white   ">
@@ -67,14 +82,26 @@ const SignUp = () => {
 
               <input
                 onChange={handlePassword}
-                className="w-[368px] h-[104px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
-                type="text"
+                className="w-[368px] h-[81px]  border border-[#A0A0A0] border-1px rounded-[9px] pl-[50px]"
+                type={showIcon ? "password" : "text"}
                 placeholder="******"
               />
+              {showIcon ? (
+                <LuEyeClosed
+                  onClick={() => setShowIcon(false)}
+                  className="absolute top-1/2 translate-y-[-50%] right-25 text-[20px] cursor-pointer"
+                />
+              ) : (
+                <FaEye
+                  onClick={() => setShowIcon(true)}
+                  className="absolute top-1/2 translate-y-[-50%] right-25 text-[20px]"
+                />
+              )}
+              {PasswordErr && <p className="text-red-300">{PasswordErr} </p>}
             </div>
             <div>
               <button
-                onClick={handleSignUp}
+                onClick={handleSignUpbtn}
                 className=" text-white bg-2nd text-[20px] font-semibold px-[158px] py-[20px] mt-[52px] rounded-[60px]"
               >
                 Sign up
